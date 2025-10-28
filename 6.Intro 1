@@ -1,0 +1,62 @@
+import SwiftUI
+
+struct Intro1View: View {
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer().frame(height: 24)
+            
+            // Top birds image (replace with your asset)
+            Image("birds") // Put the birds graphic in Assets.xcassets as "birds"
+                .resizable()
+                .scaledToFit()
+                .frame(height: 60)
+                .padding(.top, 24)
+            
+            // Main logo (replace with your asset)
+            Image("logo") // Put the forest logo graphic in Assets.xcassets as "logo"
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+                .padding(.bottom, 8)
+            
+            Text("CogniSync")
+                .font(.largeTitle)
+                .fontWeight(.semibold)
+                .foregroundColor(Color(.brown))
+                .padding(.bottom, 8)
+            
+            Text("What is CogniSync?")
+                .font(.headline)
+                .fontWeight(.bold)
+                .padding(.bottom, 4)
+            
+            Text("CogniSync combines mindfulness practices with cognitive training to enhance your focus, memory, and emotional well-being through scientifically-backed techniques")
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.primary)
+                .padding([.horizontal, .bottom])
+            
+            Spacer()
+            Button(action: {
+                // Handle Next button tap
+            }) {
+                Text("Next")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(.systemGray3))
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+        }
+        .background(Color(red: 234/255, green: 218/255, blue: 216/255)) // soft pink
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct Intro1View_Previews: PreviewProvider {
+    static var previews: some View {
+        Intro1View()
+    }
+}
+
