@@ -1,0 +1,65 @@
+import SwiftUI
+
+struct Task3View: View {
+    @State private var ratings: [Int] = [1, 1, 1]
+    
+    let statements = [
+        "How interested and engaged do you feel in your daily activities",
+        "How much do you feel stressed, upset, or overwhelmed",
+        "To what extent do you feel enthusiastic or motivated about your goals"
+    ]
+    
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer().frame(height: 16)
+            Text("Task 3")
+                .font(.headline)
+                .padding(.bottom, 2)
+            
+            Text("Rated on a scale such as 1 = Very Slightly/Not At All to 5 = Extremely")
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            ForEach(0..<statements.count, id: \.self) { index in
+                VStack(spacing: 10) {
+                    Text(statements[index])
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                    
+                    Picker("", selection: $ratings[index]) {
+                        ForEach(1...5, id: \.self) { num in
+                            Text("\(num)").tag(num)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal)
+                }
+            }
+            
+            Spacer()
+            Button(action: {
+                // Handle Next button tap
+            }) {
+                Text("Next")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(.systemGray3))
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+        }
+        .background(Color(.systemGroupedBackground))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct Task3View_Previews: PreviewProvider {
+    static var previews: some View {
+        Task3View()
+    }
+}
+
