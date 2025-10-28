@@ -1,0 +1,205 @@
+import SwiftUI
+import Charts // optional if you use chart view (iOS 16+)
+
+struct HomePage1View: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+
+                // Top Bar
+                HStack {
+                    Text("Hi, Martha")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Image(systemName: "line.3.horizontal")
+                        .font(.title2)
+                }
+                .padding(.horizontal)
+
+                // Mindfulness Modules Section
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Mindfulness Modules")
+                        .font(.headline)
+                        .padding(.horizontal)
+
+                    // Module cards grid
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                        
+                        // Card 1
+                        ModuleCard(
+                            title: "Focused Attention",
+                            time: "10 mins",
+                            color: Color(red: 0.87, green: 0.93, blue: 0.91),
+                            imageName: "leaf"
+                        )
+                        
+                        // Card 2
+                        ModuleCard(
+                            title: "Working memory",
+                            time: "12 mins",
+                            color: Color(red: 1.0, green: 0.94, blue: 0.88),
+                            imageName: "lightbulb"
+                        )
+                        
+                        // Card 3
+                        ModuleCard(
+                            title: "Present Moment Awareness",
+                            time: "8 mins",
+                            color: Color(red: 0.91, green: 0.93, blue: 1.0),
+                            imageName: "person.sitting"
+                        )
+                        
+                        // Card 4
+                        ModuleCard(
+                            title: "Emotional Regulation",
+                            time: "9 mins",
+                            color: Color(red: 1.0, green: 0.96, blue: 0.82),
+                            imageName: "figure.mind.and.body"
+                        )
+                        
+                        // Card 5
+                        ModuleCard(
+                            title: "Cognitive Integration",
+                            time: "6 mins",
+                            color: Color(red: 0.94, green: 0.89, blue: 1.0),
+                            imageName: "brain"
+                        )
+                    }
+                    .padding(.horizontal)
+                }
+
+                // Progress Dashboard Section
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Progress Dashboard")
+                        .font(.headline)
+                        .padding(.horizontal)
+
+                    Text("Track your mindfulness journey")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+
+                    // Dashboard cards
+                    HStack(spacing: 15) {
+                        ProgressCard(title: "Attention Score", value: "5.7", color: Color(red: 0.79, green: 0.87, blue: 1.0))
+                        ProgressCard(title: "Emotional Regulation", value: "5.0", color: Color(red: 0.96, green: 0.82, blue: 1.0))
+                    }
+                    .padding(.horizontal)
+
+                    HStack(spacing: 15) {
+                        ProgressCard(title: "Memory Score", value: "4.5", color: Color(red: 0.87, green: 0.94, blue: 0.91))
+                    }
+                    .padding(.horizontal)
+
+                    // Simple chart using Swift Charts (optional)
+                    ChartView()
+                        .frame(height: 150)
+                        .padding(.horizontal)
+                        .background(Color.white)
+                        .cornerRadius(16)
+                        .shadow(radius: 1)
+                        .padding(.horizontal)
+                }
+
+                Spacer(minLength: 30)
+            }
+            .padding(.top)
+        }
+        .background(Color(red: 0.99, green: 0.93, blue: 0.93))
+        .ignoresSafeArea(edges: .bottom)
+    }
+}
+
+// MARK: - Module Card
+struct ModuleCard: View {
+    let title: String
+    let time: String
+    let color: Color
+    let imageName: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Spacer()
+                Image(systemName: imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+            }
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+            Text(time)
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+        .padding()
+        .frame(height: 120)
+        .background(color)
+        .cornerRadius(16)
+    }
+}
+
+// MARK: - Progress Card
+struct ProgressCard: View {
+    let title: String
+    let value: String
+    let color: Color
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.medium)
+            Text(value)
+                .font(.title3)
+                .fontWeight(.semibold)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(color)
+        .cornerRadius(16)
+    }
+}
+
+// MARK: - Chart View
+struct ChartDataPoint: Identifiable {
+    let id = UUID()
+    let week: String
+    let score: Double
+}
+
+struct ChartView: View {
+    let data: [ChartDataPoint] = [
+        ChartDataPoint(week: "wk1", score: 4.2),
+        ChartDataPoint(week: "wk2", score: 4.8),
+        ChartDataPoint(week: "wk3", score: 5.3)
+    ]
+
+    var body: some View {
+        if #available(iOS 16.0, *) {
+            Chart(data) {
+                LineMark(
+                    x: .value("Week", $0.week),
+                    y: .value("Score", $0.score)
+                )
+            }
+            .chartXAxis {
+                AxisMarks(position: .bottom)
+            }
+            .chartYAxis {
+                AxisMarks()
+            }
+        } else {
+            Text("Chart available on iOS 16+")
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+    }
+}
+
+#Preview {
+    HomePage1View()
+}
+
