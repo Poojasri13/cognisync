@@ -1,0 +1,72 @@
+import SwiftUI
+
+struct ContentView: View {
+    
+    @State var navigate:Bool = false
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                // Background Illustration or Color
+                Image("background") // Replace "background" with your asset name or use a color/gradient below
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                //.blur(radius: 2) // Optional: slight blur to match sample style
+                
+                // Overlay Gradient (optional, for stylized look)
+                LinearGradient(gradient: Gradient(colors: [Color.pink.opacity(0.4), Color.teal.opacity(0.3)]),
+                               startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+                
+                VStack(alignment: .center, spacing: 16) {
+                    Spacer().frame(height: 60)
+                    
+                    Text("CogniSync")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    Text("Boost your mind Achieve calm\nStart today with CogniSync")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.primary)
+                        .font(.body)
+                        .padding(.horizontal, 32)
+                    
+                    Spacer()
+                    
+                    // Circular Button
+                    Button(action: {
+                        navigate = true
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.black.opacity(0.3))
+                                .frame(width: 56, height: 56)
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.white)
+                                .font(.title)
+                        }
+                    }
+                    .padding(.bottom, 30)
+                    
+                    Text("Get Started")
+                        .font(.footnote)
+                        .foregroundColor(.black)
+                        .padding(.bottom, 36)
+                }
+                .padding(.horizontal, 12)
+            }
+            .navigationDestination(isPresented: $navigate) {
+                LoginView()
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
