@@ -1,0 +1,107 @@
+import SwiftUI
+
+struct Task1QuizView: View {
+    @State private var sameOrderInput: String = ""
+    @State private var reverseOrderInput: String = ""
+    @State private var showAlert: Bool = false
+
+    var body: some View {
+        VStack(spacing: 25) {
+            // Top Back Button
+            HStack {
+                Button(action: {
+                    // Navigation back action
+                }) {
+                    Circle()
+                        .fill(Color(.black))
+                        .frame(width: 35, height: 35)
+                        .overlay(
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.white)
+                        )
+                }
+                Spacer()
+                // Optional: Top right decoration
+                Circle()
+                    .fill(Color(.white))
+                    .frame(width: 70, height: 70)
+                    .offset(x: 25, y: -25)
+                    .opacity(0.6)
+            }
+            .padding(.horizontal, 10)
+            .padding(.top, 10)
+
+            Spacer()
+
+            // Quiz Title
+            Text("Lets start with quiz")
+                .font(.title3)
+                .fontWeight(.semibold)
+            Text("Task 1")
+                .font(.title3)
+                .fontWeight(.bold)
+                .padding(.top, 2)
+
+            // Same Order
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Please repeat these numbers\nin the same order: 5,2,7,6,4,9")
+                    .font(.callout)
+                    .fontWeight(.medium)
+                    .padding(.bottom, 2)
+                TextField("", text: $sameOrderInput)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+            }
+            .padding()
+            .background(Color(.systemGray5))
+            .cornerRadius(12)
+
+            // Reverse Order
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Please repeat these numbers\nin reverse order: 9, 3, 6,1,2,8")
+                    .font(.callout)
+                    .fontWeight(.medium)
+                    .padding(.bottom, 2)
+                TextField("", text: $reverseOrderInput)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+            }
+            .padding()
+            .background(Color(.systemGray5))
+            .cornerRadius(12)
+
+            // Next Button
+            Button(action: {
+                // Example validation
+                if sameOrderInput.isEmpty || reverseOrderInput.isEmpty {
+                    showAlert = true
+                } else {
+                    // Handle next logic here
+                }
+            }) {
+                Text("Next")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(.gray))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text("Please enter answers for both tasks"), dismissButton: .default(Text("OK")))
+            }
+
+            Spacer()
+        }
+        .padding()
+        .background(Color(red: 0.6, green: 0.3, blue: 0.3, opacity: 0.1)) // Light background tint
+    }
+}
+
+struct Task1QuizView_Previews: PreviewProvider {
+    static var previews: some View {
+        Task1QuizView()
+    }
+}
+
