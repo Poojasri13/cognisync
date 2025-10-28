@@ -1,0 +1,103 @@
+import SwiftUI
+
+struct LoginView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var showAlert: Bool = false
+    
+    @State private var navigate: Bool = false
+
+    var body: some View {
+      
+            VStack(spacing: 25) {
+                Spacer()
+                // App Logo
+                Image(systemName: "leaf.circle") // Replace with your logo asset if available
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    .padding(.bottom, 8)
+
+                Text("CogniSync")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 24)
+
+                Text("welcome back")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .padding(.bottom, -10)
+                Text("Sign in")
+                    .font(.body)
+                    .foregroundColor(.gray)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Mail id")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    TextField("Enter mail id", text: $email)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+
+                    Text("Password")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    SecureField("Enter password", text: $password)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                }
+
+                Button(action: {
+                    // Example login validation
+                    if email.isEmpty || password.isEmpty {
+                        showAlert = true
+                    } else {
+                        navigate = true
+                    }
+                }) {
+                    Text("Login")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(.gray))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text("Please enter email and password"), dismissButton: .default(Text("OK")))
+                }
+
+                HStack {
+                    Text("Don't have account ?")
+                        .foregroundColor(.gray)
+                        .font(.footnote)
+                    NavigationLink(destination: SignUpView()) {
+                        Text("signup")
+                            .foregroundColor(.pink)
+                            .font(.footnote)
+                    }
+                }
+                Spacer()
+            }
+            .padding()
+            .navigationDestination(isPresented: $navigate) {
+                Task1QuizView()
+            }
+        
+    }
+}
+
+struct SignUpView: View {
+    var body: some View {
+        Text("Sign Up Page (to be implemented)")
+    }
+}
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
+}
+
