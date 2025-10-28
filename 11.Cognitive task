@@ -1,0 +1,102 @@
+import SwiftUI
+
+struct CognitiveTaskView: View {
+    @State private var sameOrderInput: String = ""
+    @State private var reverseOrderInput: String = ""
+    
+    var body: some View {
+        ZStack {
+            // Light pink background
+            Color(red: 1.0, green: 0.92, blue: 0.92)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 25) {
+                
+                // Top back button and title
+                HStack {
+                    Button(action: {
+                        print("Back tapped")
+                    }) {
+                        Image(systemName: "chevron.right")
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .frame(width: 35, height: 35)
+                            .background(Color.black)
+                            .clipShape(Circle())
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.top, 10)
+                
+                // Title
+                Text("Lets start with quiz")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .padding(.top, 10)
+                
+                Spacer()
+                
+                // First Task
+                VStack(spacing: 15) {
+                    Text("Please repeat these numbers\nin the same order: 5,2,7,6,4,9")
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
+                    
+                    TextField("", text: $sameOrderInput)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                        .background(Color(red: 0.93, green: 0.93, blue: 0.93))
+                        .cornerRadius(10)
+                        .frame(height: 50)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(red: 0.93, green: 0.93, blue: 0.93))
+                .cornerRadius(15)
+                .padding(.horizontal, 30)
+                
+                // Second Task
+                VStack(spacing: 15) {
+                    Text("Please repeat these numbers\nin reverse order: 9, 3, 6,1,2,8")
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
+                    
+                    TextField("", text: $reverseOrderInput)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                        .background(Color(red: 0.93, green: 0.93, blue: 0.93))
+                        .cornerRadius(10)
+                        .frame(height: 50)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(red: 0.93, green: 0.93, blue: 0.93))
+                .cornerRadius(15)
+                .padding(.horizontal, 30)
+                
+                Spacer()
+                
+                // Next Button
+                Button(action: {
+                    print("Next tapped")
+                }) {
+                    Text("Next")
+                        .bold()
+                        .frame(width: 200, height: 45)
+                        .background(Color(red: 0.75, green: 0.82, blue: 0.86))
+                        .foregroundColor(.black)
+                        .cornerRadius(15)
+                }
+                .padding(.bottom, 40)
+            }
+        }
+    }
+}
+
+#Preview {
+    CognitiveTaskView()
+}
+
