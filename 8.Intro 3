@@ -1,0 +1,74 @@
+import SwiftUI
+
+struct Intro3View: View {
+    var body: some View {
+        ZStack {
+            // Light pink background
+            Color(red: 1.0, green: 0.92, blue: 0.92)
+                .ignoresSafeArea()
+
+            VStack(spacing: 30) {
+                Spacer()
+
+                // Graph icon
+                Image(systemName: "chart.bar.xaxis")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 90, height: 90)
+                    .foregroundColor(.black)
+
+                // Title
+                Text("How your progress is tracked")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+
+                // Description text
+                Text("We use validated psychological scales and cognitive tasks to measure your progress over time, giving you clear insights into your mental wellness journey.")
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 30)
+
+                Spacer()
+
+                // Buttons row
+                HStack(spacing: 40) {
+                    Button(action: {
+                        print("Back tapped")
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
+                        .padding()
+                        .frame(width: 120)
+                        .background(Color(red: 0.75, green: 0.82, blue: 0.86))
+                        .foregroundColor(.black)
+                        .cornerRadius(15)
+                    }
+
+                    Button(action: {
+                        print("Next tapped")
+                    }) {
+                        Text("Next")
+                            .bold()
+                            .padding()
+                            .frame(width: 120)
+                            .background(Color(red: 0.75, green: 0.82, blue: 0.86))
+                            .foregroundColor(.black)
+                            .cornerRadius(15)
+                    }
+                }
+
+                Spacer(minLength: 40)
+            }
+            .padding()
+        }
+    }
+}
+
+#Preview {
+    Intro3View()
+}
+
