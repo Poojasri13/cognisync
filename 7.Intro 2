@@ -1,0 +1,73 @@
+import SwiftUI
+
+struct Intro2View: View {
+    var body: some View {
+        ZStack {
+            Color(red: 1.0, green: 0.92, blue: 0.92) // light pink background
+                .ignoresSafeArea()
+
+            VStack(spacing: 30) {
+                Spacer()
+
+                // Target icon
+                Image(systemName: "target")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 90, height: 90)
+                    .foregroundColor(.black)
+
+                // Title text
+                Text("How mindfulness enhances\nmemory & focus")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+
+                // Description text
+                Text("Regular mindfulness practice strengthens neural pathways related to attention and working memory, helping you stay focused and remember information more effectively.")
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 30)
+
+                Spacer()
+
+                // Navigation buttons
+                HStack(spacing: 40) {
+                    Button(action: {
+                        print("Back tapped")
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
+                        .padding()
+                        .frame(width: 120)
+                        .background(Color(red: 0.75, green: 0.82, blue: 0.86))
+                        .foregroundColor(.black)
+                        .cornerRadius(15)
+                    }
+
+                    Button(action: {
+                        print("Next tapped")
+                    }) {
+                        Text("Next")
+                            .bold()
+                            .padding()
+                            .frame(width: 120)
+                            .background(Color(red: 0.75, green: 0.82, blue: 0.86))
+                            .foregroundColor(.black)
+                            .cornerRadius(15)
+                    }
+                }
+
+                Spacer(minLength: 40)
+            }
+            .padding()
+        }
+    }
+}
+
+#Preview {
+    Intro2View()
+}
+
